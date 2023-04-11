@@ -1,0 +1,16 @@
+ion-avatar {
+    --border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+ion-searchbar {
+    --background: rgba(0, 0, 0, 0.753);
+    max-width: 350px;
+    color: white;
+}
+
+ion-card:hover {
+    cursor: pointer;
+    background: rgba(7, 7, 7, 0.25);
+}

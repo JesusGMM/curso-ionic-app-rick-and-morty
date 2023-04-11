@@ -4,8 +4,51 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="glass-content ion-text-center">
+  <div class="glass-content">
+
+    <div class="d-flex-center">
+      <ion-searchbar placeholder="Buscar" inputmode="text" type="text" [(ngModel)]="params.name"
+        (ionInput)="searchCharacters()" [debounce]="300" showCancelButton="always"></ion-searchbar>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of characters" size="12" sizeMd="6">
+
+          <ion-card routerLink="/character/{{item.id}}">
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-padding" size="12" sizeSm="4">
+                  <ion-avatar>
+                    <img [ngSrc]="item.image" [alt]="item.name" width="300" height="300" priority>
+                  </ion-avatar>
+                </ion-col>
+                <ion-col class="ion-padding" size="12" sizeSm="8">
+
+                  <div>
+                    {{ item.name }}
+                  </div>
+                  <p>
+                    Visto por primera vez: <br>
+                    <strong>{{ item.origin.name}}</strong>
+                  </p>
+
+                  <p>
+                    Visto por ultima vez: <br>
+                    <strong>{{ item.location.name}}</strong>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll threshold="25%" position="bottom" (ionInfinite)="getCharacters( $event )">
+      <ion-infinite-scroll-content color="light" loadingSpinner="bubbles" loadingText="Cargando personajes...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
-
-
 </ion-content>
