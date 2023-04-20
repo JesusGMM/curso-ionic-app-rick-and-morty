@@ -1,13 +1,64 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>character</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">character</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="glass-content ion-padding">
+
+    <div class="loader" *ngIf="!personaje">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <div class="ion-padding ion-text-center" *ngIf="personaje">
+
+      <ion-avatar>
+        <img [src]="personaje.image" />
+      </ion-avatar>
+
+      <h1> {{ personaje.name }} </h1>
+      <div> Estado - {{ personaje.status === 'Alive' ? 'Vivo' : 'Muerto' }} </div>
+
+      <ion-item lines="none">
+        <ion-icon slot="start" name="location-outline"></ion-icon>
+        <ion-label>Visto por primera vez: <br> <strong> {{ personaje.origin.name }} </strong></ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon slot="start" name="location-outline"></ion-icon>
+        <ion-label>Visto por última vez: <br> <strong> {{ personaje.location.name }} </strong></ion-label>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-icon slot="start" name="videocam-outline"></ion-icon>
+        <ion-label>Episodios donde aparece:</ion-label>
+        <ion-icon slot="end" name="chevron-down"></ion-icon>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" sizeMd="6" sizeLg="4" sizeXl="3" *ngFor="let item of episodios">
+
+            <ion-card>
+              <ion-card-content class="ion-text-start">
+                <strong> {{ item.name }} </strong>
+                <p>
+                  {{ item.episode }}
+                </p>
+                <p>
+                  Fecha de emision: {{ item.air_date | date: 'fullDate' }}
+                </p>
+              </ion-card-content>
+            </ion-card>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+
+  </div>
 </ion-content>
